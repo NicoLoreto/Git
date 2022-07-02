@@ -122,6 +122,11 @@ Other
     --show-scope          show scope of config (worktree, local, global, system, command)
     --default <value>     with --get, use default value when missing entry
 
+# git.init = inicializar un repositorio en el directorio que estoy
+
+$ git init
+Initialized empty Git repository in C:/Programacion/github.com/NicoLoreto/miweb/.git/
+
 # Comandos
 
 # ls listado de carpetas y archivos
@@ -155,11 +160,6 @@ nicol@LAPTOP-BQ870N7O MINGW64 /c/Programacion/github.com/NicoLoreto (master)
 $ ls
 Proyecto-Integrador/    ejerciciosEnJavaScript/  miweb/
 conceptosEnJavaScript/  lenguajes/               pruebaGit/
-
-# git.init = inicializar un repositorio en el directorio que estoy
-
-$ git init
-Initialized empty Git repository in C:/Programacion/github.com/NicoLoreto/miweb/.git/
 
 # mostrar archivos ocultos
 
@@ -239,7 +239,7 @@ cuando guardo y cierro el editor agrega el commit
 
 # deleted = eliminar un archivo
 
-primero veo el listado (ls), con rm elimino el archivo, con status veo que hay nuevos cambios por agregar, con add agrego el cambio. el archivo eliminado se agega al stage. finalmente hago el commit para eliminar el archivo.
+primero veo el listado (ls), con rm elimino el archivo, con status veo que hay nuevos cambios por agregar, con add agrego el cambio. el archivo eliminado se agrega al stage. finalmente hago el commit para eliminar el archivo.
 
 $ ls
 'Hola mundo.txt'  'chanchito feliz.txt'
@@ -281,7 +281,6 @@ uso restore --staged
 
 $ git restore --staged "Hola mundo.txt"
 
-nicol@LAPTOP-BQ870N7O MINGW64 /c/Programacion/github.com/NicoLoreto/miweb (master)
 $ git status
 On branch master
 Changes not staged for commit:
