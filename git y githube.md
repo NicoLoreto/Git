@@ -556,9 +556,18 @@ $ git remote -v
 origin  https://github.com/NicoLoreto/Git.git (fetch)
 origin  https://github.com/NicoLoreto/Git.git (push)
 
-cambiar nombre a repositorio remoto
+# cambiar nombre a repositorio remoto
 
 git remote add [nombre] [url]
+
+$ git remote add Git_y_Githube https://github.com/NicoLoreto/Git.git
+
+nicol@LAPTOP-BQ870N7O MINGW64 /c/Programacion/ISPC/2022/1 cuatrimestre/Programador/Metodologías Agiles y Gestión de Proyectos (master)
+$ git remote
+Git_y_Githube
+origin
+
+
 
 
 
