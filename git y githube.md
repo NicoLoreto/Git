@@ -548,6 +548,10 @@ To https://github.com/NicoLoreto/miweb.git
  * [new branch]      ramaC -> ramaC
 branch 'ramaC' set up to track 'origin/ramaC'.
 
+# cambiar nombre a repositorio remoto
+
+git remote -v [nombre] [url]
+
 
 
 
