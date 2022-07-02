@@ -548,9 +548,19 @@ To https://github.com/NicoLoreto/miweb.git
  * [new branch]      ramaC -> ramaC
 branch 'ramaC' set up to track 'origin/ramaC'.
 
-# cambiar nombre a repositorio remoto
+# ver en que repositorio remoto estoy
 
-git remote -v [nombre] [url]
+git remote -v
+
+$ git remote -v
+origin  https://github.com/NicoLoreto/Git.git (fetch)
+origin  https://github.com/NicoLoreto/Git.git (push)
+
+cambiar nombre a repositorio remoto
+
+git remote add [nombre] [url]
+
+
 
 
 
