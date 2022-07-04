@@ -567,6 +567,8 @@ $ git remote
 Git_y_Githube
 origin
 
+# git show = muestra en detalle los cambios historicos
+
 
 
 
