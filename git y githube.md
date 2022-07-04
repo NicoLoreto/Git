@@ -379,7 +379,9 @@ $ git commit -m "Mostrando status corto"
 
 # git diff
 
-muestra los textos de los cambios que estoy por agregar, pero que todavia no pasaron a la etapa de staged
+muestra los textos de los cambios que estoy por agregar, pero que todavia no pasaron a la etapa de staged. Permite comparar los cambios realizados y enviados en dos determinados commit, para esto se debe copiar la llave o indicador de cada commit.
+
+git diff [commit vers 1] [commit vers 2]
 
 $ git diff
 diff --git a/archivo2.txt b/archivo2.txt
@@ -461,6 +463,45 @@ b31b63d Eliminando chanchito feliz
 10d5835 Primer commit
 
 # ramas
+
+Una rama es un nombre que se da a un commit, a partir del cual se empieza a
+trabajar de manera independiente y con el que se van a enlazar nuevos
+commits (de esa misma rama).
+
+Por regla general a master se la considera la rama principal y la raíz de la mayoría de las demás ramas. Lo más habitual es que en master se encuentre el "código definitivo", que luego va a producción, y es  la rama en la que se mezclan todas las demás.
+
+git checkout -b "nombre_rama"
+Este comando es una fusión entre “git branch” y “git
+checkout”, y crea una rama llamada “nombre_rama” y a la vez
+hace un checkout de la rama “nombre_rama”
+
+origin/master = Es una rama
+remota, es una copia local de la
+rama llamada "master", en el
+repositorio remoto llamado
+"origin"
+
+GIT FLOW
+Es una una guía que nos da ciertos
+estándares para manejar la
+ramificación de nuestros
+proyectos
+
+
+1. rama master = rama por defecto al iniciar un repo
+2. rama develop = rama en la que está el código que conformará la siguiente versión planificada del proyecto.
+3. rama release = ramas que se generan a partir de la rama develop y se incorporan a esta o a master. Se utilizan para
+preparar el siguiente código en producción, se hacen los últimos ajustes y se corrigen los últimos bugs antes de pasar el código a producción incorporándolo a la rama master.
+4. FEATURE ó TOPIC BRANCHES = Ramas que se generan a partir de la rama develop
+y se incorporan siempre a esta. Se utilizan para
+desarrollar nuevas características de la
+aplicación.
+5. RAMAS HOTFIX = Ramas que se generan a partir de la rama master
+y se incorporan siempre a esta o develop. Se
+utilizan para para corregir errores y bugs en el
+código en producción. Funcionan de forma parecida
+a las ramas Releases, siendo la principal diferencia
+que los hotfixes no se planifican
 
 salir del seguimiento lineal, para cuando estemos seguros de nuestro codigo volver a la rama principal. BRANCH
 
@@ -567,7 +608,215 @@ $ git remote
 Git_y_Githube
 origin
 
-# git show = muestra en detalle los cambios historicos
+# Git show = Permite ver el ultimo commit y los cambios realizados en el archivo
+
+# git reset = Permite volver a una versión anterior, sin poder volver al estado
+anterior pero tiene dos atributos principales.
+
+--hard = Permite restablecer      
+al estado anterior,
+todo vuelve como
+estaba. Es el más
+peligroso porque
+borra todo y no
+mantiene nada.
+
+--soft = Permite restablecer al
+estado anterior, pero
+mantiene en staging los
+commits "eliminados". Es
+decir, el directorio de
+trabajo vuelve a la versión
+del commit seleccionado.
+
+--mixed = Permite restablecer al estado anterior, pero mantiene en Working
+Directory los commits "eliminados". Es decir, el directorio de trabajo
+se restablece, pero deja en el directorio local los cambios realizados
+posterior al commit seleccionado.
+
+git log --stat = Permite ver los cambios específicos que se hicieron, en
+cuales archivos, por cada commit.
+
+git checkout = Permite volver a una versión anterior, es decir ver
+como era el archivo en un determinado commit, en
+realidad no ha cambiado todavía, lo que hace es pasarlo
+al staging.
+git checkout [Hash del commit] archivo.txt
+
+git checkout master = Permite ver a la versión master del archivo, es decir la ultima versión
+que se había enviado en el ultimo commit.
+git checkout master archivo.txt
+
+# git fetch
+
+Lo usamos para traer actualizaciones del servidor remoto y guardarlas en
+nuestro Local Repository. Traemos los cambios que no tenemos pero no lo
+lo combina automáticamente con tu trabajo ni modifica el trabajo que llevas
+hecho.
+
+# git merge
+
+Este comando se ejecuta para combinar los últimos cambios traídos del
+servidor remoto (con git fetch), y nuestro Working Directory.
+
+# git pull
+
+Este comando se emplea para extraer y
+descargar contenido desde un repositorio
+remoto y actualizar al instante el proyecto
+local para reflejar ese contenido.
+Básicamente, git fetch y git merge  al
+mismo tiempo.
+
+git fetch nombre-rama 
+#Trae los cambios del
+repositorio remoto, crea
+la rama y los deja en esta.
+Luego debemos fusionar
+con otra rama de nuestro
+proyecto.
+git pull nombre-remoto
+nombre-rama  
+#Trae los cambios del
+repositorio remoto
+llamado "nombreremoto" y los fusiona
+con la rama "nombrerama"
+git push nombre-remoto
+nombre-rama
+#Envía los cambios de
+nuestro Local
+Repository al
+repositorio remoto
+llamado "nombre-remoto"
+y la rama "nombre-rama"
+
+# add y commit a la vez = Puedo utilizar git commit -am "Mensaje" para hacer un add y un commit a la vez, solo para archivos previamente guardados.
+
+git branch -v #para ver la última
+confirmación de cambios en cada
+rama
+git branch --merged #ver las
+ramas que han sido fusionadas con
+la rama activa
+git branch --no-merged #mostrar
+todas las ramas que contienen
+trabajos sin fusionar
+git branch -D #Permite borrar la
+rama, forzando el borrado incluso
+si se tiene trabajos sin fusionar.
+Se pierde el trabajo contenido en
+ella.
+
+# git branch -l
+
+Comando para
+ver la lista de los
+branchs del
+proyecto,
+además que
+indica la rama
+actual
+
+# git merge -d "nombre rama"
+Comando que permite eliminar una rama, cuando esta ya no se va a usar, y
+estamos seguros que el merge fue exitoso y no tiene trabajos sin fusionar
+
+# git mergetool = Arranca una
+herramienta visual en
+consola que permite resolver
+conflictos.
+
+# git mergetool = Arranca una
+herramienta visual en
+consola que permite resolver
+conflictos.
+
+git reset --merge HEAD = Si hemos realizado
+un merge con una rama con
+la que no queríamos.
+
+Para resolver el conflicto, se tiene que elegir
+manualmente el contenido de uno o de otro lado.
+
+✓ Una vez que se resolvieron los conflictos, se debe agregar los cambios, ejemplo:
+git commit -am "Solucioné el conflicto de las ramas"
+
+# GITHUBE
+
+GitHub es una forja para alojar proyectos utilizando el sistema de control de
+versiones Git. Se utiliza principalmente para la creación de código fuente de
+programas de ordenador.
+
+git clone "URL"
+Comando para clonar un repositorio desde
+GitHub (o cualquier otro servidor remoto)
+debemos copiar la URL (por ahora, usando
+HTTPS) y ejecutar el comando  git clone + la URL
+que acabamos de copiar.
+
+Conectar el repositorio de GitHub con
+nuestro repositorio local:
+1. Guardar la URL del repositorio de GitHub con el nombre origin. git remote add origin "URL".
+2. Verificar que la URL se haya guardado correctamente. git remote git remote -v
+3. Debemos traer la versión del repositorio remoto y hacer merge para crear
+un commit con los archivos de ambas partes. Podemos usar git fetch y git
+merge o solo el git pull, pero para forzar se debe usar: git pull origin master --allow-unrelated-histories
+4.  Por último, ahora sí podemos hacer git push para guardar los cambios de nuestro repositorio local en GitHub
+
+# llaves
+
+Las llaves publicas y privadas sirven para compartir información en Internet de una forma
+segura, incluso si el mensaje es interceptado la probabilidad de que se pueda descifrar es
+casi nulo, si no se tiene la llave privada. Este método se usa incluso en el mundo
+financiero.
+Importante: Nunca compartir la llave privada porque con esta, pueden acceder a tus
+proyectos, incluso los de tus clientes y perder TU información.
+
+La criptografía asimétrica, también llamada criptografía de clave
+pública o criptografía de dos claves, es el método criptográfico
+que asegura que un mensaje enviado no pueda ser leido por ninguna
+otra persona que la persona destinataria del mensaje.
+
+La llaves se crean con un
+proceso algoritmico y
+esan vinculadas
+matematicamente una
+con la otra, de esta
+manera estan asociadas.
+
+Claves públicas y privadas
+Empecemos por lo básico.
+
+El protocolo SSH utiliza una técnica de criptografía llamada encriptación asimétrica. Este término puede parecer complicado y extraño, pero nada más lejos de la realidad.
+
+Básicamente, el cifrado asimétrico es un sistema que utiliza un par de claves, a saber, las claves pública y privada.
+
+Como puedes adivinar, la clave pública se puede compartir con cualquiera. Su objetivo principal es cifrar los datos, convirtiendo el mensaje en un código secreto o texto cifrado. Esta clave suele enviarse a otros sistemas -por ejemplo, servidores- para cifrar los datos antes de enviarlos por Internet.
+
+Por otro lado, la clave privada es la que debes guardar para ti. Se utiliza para descifrar los datos cifrados con tu clave pública. Sin ella, es imposible descifrar tu información encriptada.
+
+Este método permite que tú y el servidor mantengáis un canal de comunicación seguro para transmitir la información.
+
+Esto es lo que ocurre en segundo plano cuando te conectas a un servidor mediante SSH:
+
+El cliente envía la clave pública al servidor.
+El servidor pide al cliente que firme un mensaje aleatorio cifrado con la clave pública utilizando la clave privada.
+El cliente firma el mensaje y envía el resultado al servidor.
+Se establece una conexión segura entre el cliente y el servidor.
+Es importante mantener tus claves privadas a salvo y no compartirlas con nadie bajo ninguna circunstancia. Son literalmente la clave de toda la información que se te envía.
+
+# generar claves ssh
+
+
+nicol@LAPTOP-BQ870N7O MINGW64 ~ (master)
+$ ssh-keygen -t ed25519 -C nicoloreto2@gmail.com
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/c/Users/nicol/.ssh/id_ed25519):
+
+ssh-keygen: La herramienta de línea de comandos utilizada para crear un nuevo par de claves SSH. Puedes ver sus banderas con ssh-keygen help
+–t ed25519: La bandera -t se utiliza para indicar el algoritmo utilizado para crear la firma digital del par de claves. Si tu sistema lo soporta, ed25519 es el mejor algoritmo que puedes utilizar para crear pares de claves SSH.
+-C «email»: La bandera -c se utiliza para proporcionar un comentario personalizado al final de la clave pública, que suele ser el correo electrónico o la identificación del creador del par de claves.
+
 
 
 
