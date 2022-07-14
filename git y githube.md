@@ -200,7 +200,9 @@ Changes to be committed:
         new file:   Hola mundo.txt
         new file:   chanchito feliz.txt
 
-# si hago un cambio aparecera en rojo. para agregar los cambios al stage uso add
+# si hago un cambio aparecera en rojo.
+
+ para agregar los cambios al stage uso add
 
 $ git status
 On branch master
@@ -462,6 +464,10 @@ b31b63d Eliminando chanchito feliz
 8e1acc3 Agregando otra linea
 10d5835 Primer commit
 
+git log -S "palabra" = muestra los commit que contienen la palabra en los mens o el contenido
+
+git log --grep "palabra" =  muestra los commit en los mensajes 
+
 # ramas
 
 Una rama es un nombre que se da a un commit, a partir del cual se empieza a
@@ -529,6 +535,12 @@ a7d2585 Renombrando un archivo
 b31b63d Eliminando chanchito feliz
 8e1acc3 Agregando otra linea
 10d5835 Primer commit
+
+git branch -v = lista ramas locales
+
+git branch -f = lista ramas remotas
+
+git branch -a = lista todas las ramas
 
 # cat
 muestra el contenido del archivo
@@ -817,13 +829,312 @@ ssh-keygen: La herramienta de línea de comandos utilizada para crear un nuevo p
 –t ed25519: La bandera -t se utiliza para indicar el algoritmo utilizado para crear la firma digital del par de claves. Si tu sistema lo soporta, ed25519 es el mejor algoritmo que puedes utilizar para crear pares de claves SSH.
 -C «email»: La bandera -c se utiliza para proporcionar un comentario personalizado al final de la clave pública, que suele ser el correo electrónico o la identificación del creador del par de claves.
 
+# Tags y versiones en Git y GitHub
+
+ Git tiene la posibilidad de
+etiquetar puntos específicos del historial como importantes. Esta
+funcionalidad se usa típicamente para marcar versiones de lanzamiento
+(v1.0, por ejemplo).
+git tag -a nombre-del-tag - m "mensaje" HASH-a-etiquetar
+Comando para crear un tag y asignarlo a un determinado commit (hash)
+
+# git tag = Comando para revisar la lista de tags creados.
+
+# git show-ref --tags = Comando para revisar la lista de tags creados y sus referencias
+
+# git push origin --tags = Comando para enviar los tags creados al repositorio remoto, y si revisamos en Github, comprobamos que el tag ha sido creado.
+
+# git tag -d nombre-del-tag = Comando para eliminar un tag
+
+Luego de eliminar y enviar los cambios a GitHub (git pull y luego git push origin —tags), nos damos cuenta que todavía aparecen los tags en Github, por ello hacemos lo siguiente: git push origin :refs/tags/nombre-del-tag
+Comando para eliminar un tag y su referencia en el repositorio remoto, de esta forma borrar de la lista de tags de Github.
+
+git tag -a nombre-tag -m
+"mensaje" # si se omite el
+HASH, el tag se referencia
+al commit actual
+
+git tag -l # comando para
+ver la lista de tags
+git show nombre-tag #
+comando para ver la
+información de la etiqueta
+junto con el commit que
+está etiquetado
+Comandos útiles
+
+git push origin nombretag # comando para enviar
+un tag determinado a
+Github
+
+git config --global
+alias."nombre del alias" "git
+log --all --graph --decorate
+--oneline" # comando para
+guardar un alias en las
+configuraciones de git, para
+ejecutar 
+
+git "nombre del alias", #En
+este caso mostrará el log de
+forma 'grafica'.
+
+# Manejo de ramas en GitHub
+
+git branch = Comando para revisar las ramas creadas, pero si queremos ver más
+detalles podemos usar los siguientes comandos.
+
+git show-branch
+git show-branch —all
+
+Comandos para revisar las ramas
+creadas con su ubicación (remoto o
+local), pero además nos muestra la
+historia mas reciente de esas
+ramas y sus commits. 
+
+gitk = Con gitk podemos ver
+toda la historia de
+nuestro proyecto en
+un software para
+verlo de forma visual.
+
+VAMOS A CREAR DOS RAMAS, FOOTER Y HEADER Y LUEGO LA ENVIAREMOS A GITHUB.
+Nos ubicamos en la rama master con
+git checkout master
+git push origin "nombre rama"
+Creamos la dos ramas: git branch header
+y git branch footer
+
+git push origin "nombre rama" = Comando para enviar a Github (origin)
+
+> git push origin header
+> git push origin footer
+Con esto enviamos las ramas
+a nuestro repositorio
+remoto (Github).
+
+git push origin --delete nombre-rama = Comando para eliminar un rama remota (en Github). Básicamente, lo que hace es eliminar el apuntador del servidor.
+
+# Configurar múltiples colaboradores en un repositorio de Github
+
+Podemos añadir a cada persona de nuestro equipo como colaborador de nuestro
+repositorio.
+1. En GitHub, visita la página principal del repositorio
+2. Debajo de tu nombre de repositorio, da clic en Settings.
+3. En la barra lateral izquierda, da
+clic en Manage access
+4. Da clic en Invite a collaborato
+5. Comienza a teclear el nombre de la persona
+que deseas invitar dentro del campo de
+búsqueda. Posteriormente, da clic en algún
+nombre de la lista de coincidencias. Despues
+click en "Add [user] to [repository]"
+El usuario recibirá un correo
+electrónico invitándolo al
+repositorio.
+Se verifica que tenga la opción
+Edit en algún archivo para
+confirmar que el proceso fue
+exitoso.
+6. Click en View invitation y
+luego de ingresar a su cuenta
+Accept invitation.
+Una vez que el colaborador
+acepte la invitación, tendrá
+acceso de colaborador a tu
+repositorio.
+
+# Flujo de trabajo profesional: Haciendo merge de ramas de desarrollo a master
+
+Las ramas pueden tomar
+diferentes caminos como partes del desarrollo del trabajo, pero que en algún momento, debemos
+unirlos. Para esto, debemos elegir una rama principal y tener claro cual es el procedimiento para
+tener éxito en la fusión de todos los avances y/o updates del proyecto
+
+# Flujo de trabajo profesional con Pull requests
+
+Es la acción de validar un código que se va a mergear de una rama a otra. En este
+proceso de validación pueden entrar los factores que queramos: Builds
+(validaciones automáticas), asignación de código a tareas, validaciones manuales
+por parte del equipo, despliegues, etc.
+
+En un entorno profesional
+normalmente se bloquea
+la rama master, y para
+enviar código a dicha rama
+pasa por un code review y
+luego de su aprobación se
+unen códigos con los
+llamados pull request.
+
+Los pull request no es
+una caracteristica de
+Git , si no de Github.
+Los pull request podrían compararse con un control de calidad interno donde el equipo tiene la
+oportunidad de detectar bugs o código que no sigue lineamientos, convenciones o buenas
+prácticas. Incluso puede presentar ahorros a la empresa. Github nos permite llevar un control e
+implementa un proceso para la atención y revisión de estas solicitudes.
+
+La persona que hace todo esto, normalmente son los lideres de equipo o un perfil
+muy especial que se llama DevOps (permite que los roles que antes estaban
+aislados se coordinen y colaboren para producir productos mejores y más
+confiables)
+
+# Utilizando Pull Requests en GitHub
+
+ Una vez realizada la corrección y enviado los cambios de la rama, Gihub
+nos alerta de un push reciente y nos da la opción para comparar y crear un
+Pull Request
+
+Para crear un pull request debemos
+dar click en "Compare & pull request"
+
+Una vez creado el pull request, al
+administrador recibirá una notificación
+
+ El administrador puede comparar los
+cambios haciendo click en Files changed,
+y consultar con el equipo para la revisión
+respectiva.
+
+Dar click en Review Changes, en
+caso de requerir cambios al solicitante.
 
 
+Al solicitante, se le notifica del
+cambio requerido ingresando en Pull
+Requests
+
+Una vez realizados los cambios
+requeridos responder el Pull Request
+
+ Podemos aprobar los cambios, en
+Review Changes y Approve
+
+El solicitante recibe una
+notificación de aprobación de su
+solicitud.
 
 
+ Finalmente, el administrador o el
+Devops debe hacer el merge con la
+rama principal
+
+Si se requiere , podemos eliminar la rama ya
+que fue creada solo para solucionar un error
+(Delete Branch)
+
+# Creando un Fork, contribuyendo a un repositorio
+
+Si quieres participar en un proyecto existente, en el que no tengas permisos
+de escritura, puedes bifurcarlo (hacer un “fork”). Esto consiste en crear una
+copia completa del repositorio totalmente bajo tu control: se almacenará en
+tu cuenta y podrás escribir en él sin limitaciones.
 
 
+visita la página del mismo y
+pulsa sobre el botón
+“Fork” del lado superior
+derecho de la página.
+En unos segundos te redireccionarán a una página nueva de proyecto,
+en tu cuenta y con tu propia copia del código fuente.
+Con esto podemos clonar el proyecto a nuestro repositorio local (git clone)
+y podemos realizar cualquier cambio y aporte.
 
+Para que nuestros cambios se fusionen en el repositorio remoto original, podemos
+hacer un pull request y esperar que se realice el merge con el original.
+
+
+Github nos advierte, si la rama del
+repositorio original tiene commits, que el
+repositorio forkeado no.
+Para traer estos cambios al repositorio forkeado,
+debemos agregar una nueva fuente remota:
+git remote add upstream url-repositorio-original
+Luego traemos los cambios del original, para actualizar en el
+repositorio forkeado:
+git pull upstream master # traemos cambios del repositorio original
+git push origin master #enviamos cambios a nuestro repositorio forkeado
+
+En un proyecto público
+podemos dar click en
+Watching y Star para
+seguir el repositorio, de
+esta manera apoyamos y
+recibimos avisos cada
+vez que hay cambios en
+dicho repositorio.
+
+# Ignorar archivos en el repositorio con .gitignore
+
+Las reglas sobre los patrones que puedes incluir en el archivo .gitignore
+son las siguientes:
+Ignorar las líneas en blanco y aquellas que comiencen con #.
+Aceptar patrones glob estándar.
+Los patrones pueden terminar en barra (/) para especificar un
+directorio.
+Los patrones pueden negarse si se añade al principio el signo de
+exclamación (!)
+
+.Gitignore sirve para decirle a Git qué archivos o directorios completos debe ignorar y no subir al
+repositorio de código. Únicamente se necesita crear un archivo especificando qué elementos se deben
+ignorar y, a partir de entonces, realizar el resto del proceso para trabajo con Git de manera habitual
+
+# Githube page sirve para alojar sitios gratis desde githube
+
+# git stash
+almacena temporalmente los cambios y posteriormente los deshace 
+
+git stash pop se eliminan los cambios y se vuelven a aplicar al cod
+
+git stash branch nombre-rama = crear una rama nueva basada en la confirmacion a partir de la cual se creo el stash
+
+git stash list = listar los stash, muestra el num de stash
+
+git stash drop = eliminar stash
+
+git stash clear = elimina todos los stash
+
+# git clean -f
+
+eliminar los archivos sin seguimiento en un directorio de trabajo del repo
+
+# git clean -n = simulacro de borrado
+
+# git clean -d = tmb los directorios sin seguimiento
+
+# git clean -x = que incluya tmb los archivos ignorados
+
+# git cherry-pick [hash] [hash1] [hash2] = permite elegir una confirmacion de una rama y aplicarla a otra
+
+nos ubicamos en la rama donde vamos a llevar esa conf y ejecutamos
+
+# git commit -amend = modificar la conf mas reciente, cambiar la conf del mensaje o cambiar o remover archivos
+
+git commit ammend -m = escribir un nuevo mensaje 
+
+(las confirmaciones no pueden editarse, este comando lo que hace es enmendar una confirmacion haciendo otra)
+
+# git reflog = referencia de los ultimos 90 dias
+
+# git reset = deshace los cambios locales 
+
+# git grep =  busca a traves de los archivos en el directorio
+
+git grep -n "palabra"
+
+# git shortlog = agrupa cada conf pot autor. forma de ver quien estuvo trabajando en que.
+
+git shortlog -n = salida segun el numero de conf por auto
+
+git shortlog -e = correo electronico de cada autor
+
+git "alias" = alias para cada comando. git conf --global alias.alias-q-quiero 'comando'
+
+# git blame = quien fue el ultimo q modifico la linea
+
+git blame "nombreArchivo"
 
 
 
